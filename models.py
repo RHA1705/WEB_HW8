@@ -1,11 +1,14 @@
-from datetime import datetime
-
 from mongoengine import EmbeddedDocument, Document
-from mongoengine.fields import BooleanField, DateTimeField, EmbeddedDocumentField, ListField, StringField, IntField, DictField
+from mongoengine.fields import BooleanField, ReferenceField, EmbeddedDocumentField, ListField, StringField, IntField, DictField
 
 
-class Cats(Document):
-    name = StringField()
-    age = IntField()
-    features = ListField()
-    owners = DictField()
+class Author(Document):
+    fullname = StringField()
+    born_date = StringField()
+    born_location = StringField()
+    description = StringField()
+
+class Quote(Document):
+    tags = ListField()
+    author = ReferenceField(Author)
+    quote = StringField()
