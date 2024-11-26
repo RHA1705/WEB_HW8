@@ -1,5 +1,5 @@
-from mongoengine import EmbeddedDocument, Document
-from mongoengine.fields import BooleanField, ReferenceField, EmbeddedDocumentField, ListField, StringField, IntField, DictField
+from mongoengine import Document
+from mongoengine.fields import ReferenceField, ListField, StringField
 
 
 class Author(Document):

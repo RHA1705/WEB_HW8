@@ -1,25 +1,30 @@
-from models import Author
+from models import Author, Quote
 import connect
 
-authors = Author.objects()
-for author in authors:
-    print(f"id: {author.id}, name: {author.fullname}")
 
-# print('--- All notes ---')
-# for cat in Cats.objects():
-#     cat_names = [f'Cat name: ']
-# notes = Cats.objects()
-# for note in notes:
-#     print(note.name)
-#     records = [f'description: {record.description}, done: {record.done}' for record in note.records]
-#     tags = [tag.name for tag in note.tags]
-#     print(f"id: {note.id} name: {note.name} date: {note.created} records: {records} tags: {tags}")
+while True:
+    user_input = input()
+    if user_input == 'exit':
+        break
 
-# print('--- Notes with tag Fun ---')
-#
-# notes = Cats.objects(tags__name='Fun')
-# for note in notes:
-#     records = [f'description: {record.description}, done: {record.done}' for record in note.records]
-#     tags = [tag.name for tag in note.tags]
-#     print(f"id: {note.id} name: {note.name} date: {note.created} records: {records} tags: {tags}")
+    try:
+        command, value = user_input.split(':')
+        # print(command, value)
+        if command == 'tag':
+            result = Quote.objects(tags=value)
+            for t in result:
+                print(f'{t.quote}')
 
+        if command == 'tags':
+            values = value.split(',')
+            result = Quote.objects(tags__in=values)
+            for t in result:
+                print(f'{t.quote}')
+
+        if command == 'name':
+            author = Author.objects(fullname=value).first()
+            result = Quote.objects(author=author)
+            for t in result:
+                print(f'{t.quote}')
+    except ValueError:
+        print('Incorrect ask format. Please try again')
