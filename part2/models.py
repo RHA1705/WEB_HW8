@@ -5,5 +5,3 @@ class Contact(Document):
     fullname = StringField(required=True)
     email = StringField(required=True, unique=True)
     is_sent = BooleanField(default=False)
-    created_at = DateTimeField()
-    meta = {'indexes': ['email']}
